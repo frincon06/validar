@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* Estilos generales del formulario */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    form {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    small {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+    
+<body>
+    <form id="contactForm">
+        <!-- Campo de entrada para el nombre -->
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <small id="errorNombre" style="color: red;"></small> <!-- Espacio para mostrar errores -->
+
+        <!-- Campo de entrada para el mensaje -->
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea>
+        <small id="errorMensaje" style="color: red;"></small> <!-- Espacio para mostrar errores -->
+
+        <!-- Botón para enviar el formulario -->
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        // Captura el evento de envío del formulario
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            // Obtener los valores de los campos de entrada, eliminando espacios al inicio y final
+            let nombre = document.getElementById("nombre").value.trim();
+            let mensaje = document.getElementById("mensaje").value.trim();
+
+            // Obtener los elementos donde se mostrarán los mensajes de error
+            let errorNombre = document.getElementById("errorNombre");
+            let errorMensaje = document.getElementById("errorMensaje");
+
+            // Limpiar mensajes de error previos
+            errorNombre.textContent = "";
+            errorMensaje.textContent = "";
+
+            // Variable para controlar si el formulario es válido
+            let valido = true;
+
+            // Validar el nombre: debe tener entre 3 y 50 caracteres
+            if (nombre.length < 3 || nombre.length > 50) {
+                errorNombre.textContent = "El nombre debe tener entre 3 y 50 caracteres.";
+                valido = false; // Indicar que hay un error
+            }
+
+            // Validar el mensaje: debe tener al menos 10 caracteres
+            if (mensaje.length < 10) {
+                errorMensaje.textContent = "El mensaje debe tener al menos 10 caracteres.";
+                valido = false; // Indicar que hay un error
+            }
+
+            // Si hay errores, evitar que el formulario se envíe
+            if (!valido) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
